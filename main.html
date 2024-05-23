@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    
+    <title>SAG-TI</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/initial.css" rel="stylesheet">
+
+    <!-- dataTables css -->
+    <link href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center mt-2" href="index.html">
+                <span>
+                    <img  src="images/android-chrome-192x192.png" alt="SAG-TI" width="64" height="64">
+                  </span>
+                <div class="sidebar-brand-text mx-3">SAG-TI</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0 mt-3">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link">
+                    <span class="regular-font">Usuário: </span><span id="usuario"></span>
+                    <br>
+                    <span class="regular-font">Perfil: </span><span id="perfil"></span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" href="#" data-toggle="modal" data-target="#sistemasModal" onclick="sistemasDoUsuario(usuario)">
+                    <i class="fas fa-fw fa-desktop"></i>
+                    <span>Sistemas</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-clipboard-list"></i>
+                    <span>Processos</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item cursor-pointer" onclick="tabelaProcessos('incidente','Incidentes')">Incidentes</a>
+                        <a class="collapse-item cursor-pointer" onclick="tabelaProcessos('problema','Problemas')">Problemas</a>
+                        <a class="collapse-item cursor-pointer" onclick="tabelaProcessos('mudanca','Mudanças')">Mudanças</a>
+                        <a class="collapse-item cursor-pointer" onclick="tabelaProcessos('requisicao','Requisições')">Requisições</a>
+                        <!--a class="collapse-item cursor-pointer" onclick="acessaPagina('projetos')">Projetos</a-->
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item" onclick="acessaPagina('filtro','');">
+                <a class="nav-link cursor-pointer">
+                <i class="fas fa-fw fa-filter"></i>
+                <span>Filtro</span></a>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item cursor-pointer" href="#" data-toggle="modal" data-target="#alteraSenha">Alterar Senha</a>
+                        <a class="collapse-item cursor-pointer" href="#" data-toggle="modal" data-target="#solicitarAcesso" onclick="consultaSistemas('sistemaModal')">Solicitar Acesso</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item" id="administracao" style="display: none;">
+                <a class="nav-link collapsed cursor-pointer" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Administração</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item cursor-pointer" href="#" data-toggle="modal" data-target="#criarSistema">Criar Sistema</a>
+                        <a class="collapse-item cursor-pointer" href="#" data-toggle="modal" data-target="#concederAcesso" onclick="consultaUsuarios('listaUsuarios')">Conceder Acesso</a>
+                        <a class="collapse-item cursor-pointer" href="#" data-toggle="modal" data-target="#removerAcesso" onclick="consultaUsuarios('listaUsuariosRemove')">Remover Acesso</a>
+                        <a class="collapse-item cursor-pointer" href="#" data-toggle="modal" data-target="#solitacoesAcesso" onclick="consultaSolicitacoes()">Solicitações de Acessos</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" id="ticketPesquisa" placeholder="Pesquise pela chave do processo" aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="botaoPesquisaTicket" onclick="pesquisaTicket()">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow cursor-pointer">
+                            <a class="dropdown-item" href="index.html">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Sair
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Páginal inicial</h1>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Usuários</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="numUsuarios"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Sistemas</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="sistemas"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-desktop fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Processos
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">4</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Tickets</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="tickets"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-ticket-alt fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Descrição</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="justify">A aplicação SAG-TI é uma plataforma desenvolvida para auxiliar as equipes de TI a gerenciar e acompanhar os 
+                                    processos relacionados à infraestrutura, serviços e operações de tecnologia. 
+                                    Essa ferramenta oferece recursos avançados para planejamento, execução, monitoramento e 
+                                    controle de atividades de TI, 
+                                    permitindo uma gestão eficiente e eficaz de processos críticos.</p>
+                                <p class="justify mb-0">Com essa ferramenta, equipes e empresas podem otimizar seus processos, melhorar a comunicação, 
+                                    aumentar a transparência e garantir o cumprimento das melhores práticas da ITIL.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="alteraSenha" tabindex="-1" role="dialog" aria-labelledby="alteraSenhaTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alteraSenhaTitulo">Alterar Senha</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="usuarioAtual" class="form-label">Usuário</label>
+                            <input type="text" class="form-control" id="usuarioAtual" disabled>
+                          </div>
+                        <div class="mb-3">
+                          <label for="senhaAtual" class="form-label">Senha atual</label>
+                          <input type="password" class="form-control" id="senhaAtual">
+                        </div>
+                        <div class="mb-3">
+                          <label for="novaSenha" class="form-label">Nova Senha</label>
+                          <input type="password" class="form-control" id="novaSenha">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="validaUsuario()">Alterar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="solicitarAcesso" tabindex="-1" role="dialog" aria-labelledby="solicitarAcessoTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="solicitarAcessoTitulo">Solicitar Acesso a Sistemas</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="usuarioAtualSolicitacao" class="form-label">Usuário</label>
+                            <input type="text" class="form-control" id="usuarioAtualSolicitacao" disabled>
+                        </div>
+                        <div class="mb-3">
+                          <label for="perfilAtualSolicitacao" class="form-label">Perfil</label>
+                          <input type="text" class="form-control" id="perfilAtualSolicitacao" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sistemaModal" class="form-label">Selecione o(s) sistema(s):</label>
+                            <select class="form-control" id="sistemaModal" multiple aria-label="multiple select"></select>
+                            <small class="form-text text-muted">Nesse campo são exibidos apenas os sistemas que o usuário não possui acesso.</small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="solicitaAcesso()">Solicitar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="criarSistema" tabindex="-1" role="dialog" aria-labelledby="criarSistemaTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="criarSistemaTitulo">Criar novo sistema</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="nomeSistema" class="form-label">Nome do Sistema</label>
+                            <input type="text" class="form-control" id="nomeSistema">
+                            <small class="form-text text-muted">Escolha um nome de sistema intuitivo.</small>
+                          </div>
+                        <div class="mb-3">
+                            <label for="chaveSistema" class="form-label">Chave do Sistema</label>
+                            <input type="text" class="form-control" id="chaveSistema" minlength="5" maxlength="7">
+                            <small class="form-text text-muted">A chave do sistema deve possuir de 5 a 7 caracteres. Escolha um nome de chave intuitivo.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoSistema" class="form-label">Descrição do Sistema</label>
+                            <textarea class="form-control" id="descricaoSistema" rows="2" style="resize: none;"></textarea >
+                            <small class="form-text text-muted">Breve descrição do propósito do sistema.</small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="criarSistema()">Criar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="concederAcesso" tabindex="-1" role="dialog" aria-labelledby="concederAcessoTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="concederAcessoTitulo">Conceder Acesso a Usuário</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="pesquisaUsuario" class="form-label">Usuário</label>
+                            <div class="input-group">
+                                <input class="form-control" list="listaUsuarios" id="pesquisaUsuario" placeholder="Pesquise o usuário desejado..." aria-describedby="botaoPesquisa" onchange="resetFormulario('perfilUsuarioEscolhido','sistemasUsuario')">
+                                <button class="btn btn-outline-secondary" type="button" id="botaoPesquisa" style="border-bottom-left-radius: 0;border-top-left-radius: 0;" onclick="buscaUsuario('pesquisaUsuario','perfilUsuarioEscolhido','sistemasUsuario','acessosAtuaisConcessao','Concessao')"><i class="fas fa-fw fa-search"></i></button>
+                                <datalist id="listaUsuarios"></datalist>
+                            </div>                            
+                        </div>
+                        <div class="mb-3">
+                          <label for="perfilUsuarioEscolhido" class="form-label">Perfil</label>
+                          <input type="text" class="form-control" id="perfilUsuarioEscolhido" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sistemasUsuario" class="form-label">Selecione o(s) sistema(s) para conceder acesso:</label>
+                            <select class="form-control" id="sistemasUsuario" multiple aria-label="multiple select"></select>
+                            <small class="form-text text-muted">Nesse campo são exibidos apenas os sistemas que o usuário não possui acesso.</small>
+                        </div>
+                        <input type="hidden" id="acessosAtuaisConcessao">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="concedeAcesso()">Conceder acesso</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="removerAcesso" tabindex="-1" role="dialog" aria-labelledby="removerAcessoTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removerAcessoTitulo">Remover Acesso a Usuário</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="pesquisaUsuarioRemove" class="form-label">Usuário</label>
+                            <div class="input-group">
+                                <input class="form-control" list="listaUsuariosRemove" id="pesquisaUsuarioRemove" placeholder="Pesquise o usuário desejado..." aria-describedby="botaoPesquisaRemove" onchange="resetFormulario('perfilUsuarioEscolhidoRemove','sistemasUsuarioRemove')">
+                                <button class="btn btn-outline-secondary" type="button" id="botaoPesquisaRemove" style="border-bottom-left-radius: 0;border-top-left-radius: 0;" onclick="buscaUsuario('pesquisaUsuarioRemove','perfilUsuarioEscolhidoRemove','sistemasUsuarioRemove','acessosAtuaisRemocao','Remocao')"><i class="fas fa-fw fa-search"></i></button>
+                                <datalist id="listaUsuariosRemove"></datalist>
+                            </div>                            
+                        </div>
+                        <div class="mb-3">
+                          <label for="perfilUsuarioEscolhidoRemove" class="form-label">Perfil</label>
+                          <input type="text" class="form-control" id="perfilUsuarioEscolhidoRemove" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sistemasUsuarioRemove" class="form-label">Selecione o(s) sistema(s) para remover acesso:</label>
+                            <select class="form-control" id="sistemasUsuarioRemove" multiple aria-label="multiple select"></select>
+                            <small class="form-text text-muted">Nesse campo são exibidos apenas os sistemas que o usuário possui acesso.</small>
+                        </div>
+                        <input type="hidden" id="acessosAtuaisRemocao">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="removeAcesso()">Remover acesso</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="solitacoesAcesso" tabindex="-1" role="dialog" aria-labelledby="solitacoesAcessoTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="solitacoesAcessoTitulo">Solicitações de acesso a sistema</h5>
+                </div>
+                <div class="modal-body">
+                    <table id="tabelaSolicitacoes" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Usuário</th>
+                                <th>Perfil</th>
+                                <th>Sistema</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="linhasSolicitacoes"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="sistemasModal" tabindex="-1" role="dialog" aria-labelledby="sistemasModalTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sistemasModalTitulo">Sistemas</h5>
+                </div>
+                <div class="modal-body">
+                    <table id="tabelaSistemas" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="linhasSistemas"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="processosModal" tabindex="-1" role="dialog" aria-labelledby="processosModalTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="processosModalTitulo"></h5>
+                </div>
+                <div class="modal-body">
+                    <table id="tabelaProcessos" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Chave</th>
+                                <th>Título</th>
+                                <th>Status</th>
+                                <th>Sistema</th>
+                            </tr>
+                        </thead>
+                        <tbody id="linhasProcessos"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Fechar</button>
+                    <a class="btn btn-primary" id="botaoProcessos">Criar novo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="criarProcesso" tabindex="-1" role="dialog" aria-labelledby="criarProcessoTitulo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="criarProcessoTitulo">Criar processo</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="nomeSistemaProcesso" class="form-label">Sistema</label>
+                            <select class="form-control" id="nomeSistemaProcesso"></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipoProcesso" class="form-label">Processo</label>
+                            <select class="form-control" id="tipoProcesso">
+                                <option value="incidente-inc">Incidente</option>
+                                <option value="problema-pro">Problema</option>
+                                <option value="mudanca-mud">Mudança</option>
+                                <option value="requisicao-req">Requisição</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tituloProcesso" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="tituloProcesso">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoProcesso" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="descricaoProcesso" rows="2" style="resize: none;"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="criarProcesso()">Criar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="mensagemModal" tabindex="-1" role="dialog" aria-labelledby="mensagemLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mensagemLabel">Mensagem</h5>
+                </div>
+                <div class="modal-body" id="mensagem"></div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="css/jquery/jquery.min.js"></script>
+    <script src="css/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="css/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+    <script src="js/initial.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/sistemas.js"></script>
+    <script src="js/processos.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="css/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- dataTables js -->
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    
+</body>
+</html>
