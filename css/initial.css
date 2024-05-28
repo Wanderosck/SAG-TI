@@ -1,0 +1,33 @@
+.regular-font {
+    font-weight: 400;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.link {
+    text-decoration: underline;
+    color: rgb(12, 170, 243);
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.link:hover {
+    color: rgb(12, 243, 204);
+}
+
+.table-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+table.dataTable {
+    width: 100% !important;
+    height: 100%;
+}

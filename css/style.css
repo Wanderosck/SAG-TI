@@ -1,0 +1,9 @@
+body {
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  background-color: #4e73df;
+}
+
+.pointer {
+  cursor: pointer;
+}
