@@ -16,36 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `requisicao`
+-- Dumping data for table `solicitacoes`
 --
 
-DROP TABLE IF EXISTS `requisicao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `requisicao` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `ChaveProcesso` varchar(45) NOT NULL,
-  `Titulo` varchar(45) NOT NULL,
-  `Descricao` varchar(120) NOT NULL,
-  `Status` varchar(45) NOT NULL,
-  `Prioridade` varchar(45) DEFAULT NULL,
-  `Sistema` varchar(45) NOT NULL,
-  `ChaveSistema` varchar(45) NOT NULL,
-  `Solicitante` varchar(45) NOT NULL,
-  `ResponsavelTI` varchar(45) DEFAULT NULL,
-  `Desenvolvedor` varchar(45) DEFAULT NULL,
-  `DataClassificacao` date DEFAULT NULL,
-  `DataCriacao` date DEFAULT NULL,
-  `DataIniImplementacao` date DEFAULT NULL,
-  `DataImplementacao` date DEFAULT NULL,
-  `NotaCancelamento` varchar(120) DEFAULT NULL,
-  `DataCancelamento` date DEFAULT NULL,
-  `NotaImplementacao` varchar(120) DEFAULT NULL,
-  `DataEncerramento` date DEFAULT NULL,
-  `NotaEncerramento` varchar(120) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `solicitacoes` WRITE;
+/*!40000 ALTER TABLE `solicitacoes` DISABLE KEYS */;
+INSERT INTO `solicitacoes` VALUES (14,'Victor','Desenvolvedor','SisGest','Sistema de Gestão Empresarial','2023-08-01'),(15,'esther','Usuario','SisRH','Sistema RH','2023-08-01');
+/*!40000 ALTER TABLE `solicitacoes` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -56,4 +34,4 @@ CREATE TABLE `requisicao` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-05 16:13:01
+-- Dump completed on 2024-06-05 16:11:44

@@ -25,8 +25,8 @@ DROP TABLE IF EXISTS `mudanca`;
 CREATE TABLE `mudanca` (
   `id` int NOT NULL AUTO_INCREMENT,
   `ChaveProcesso` varchar(45) DEFAULT NULL,
-  `Titulo` varchar(45) NOT NULL,
-  `Descricao` varchar(45) NOT NULL,
+  `Titulo` varchar(90) NOT NULL,
+  `Descricao` varchar(120) NOT NULL,
   `Status` varchar(45) NOT NULL,
   `TipoMudanca` varchar(45) DEFAULT NULL,
   `Sistema` varchar(45) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE `mudanca` (
   `DataCancelamento` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ChaveProcesso_UNIQUE` (`ChaveProcesso`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -64,4 +64,4 @@ CREATE TABLE `mudanca` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-29 12:35:59
+-- Dump completed on 2024-06-05 16:12:59

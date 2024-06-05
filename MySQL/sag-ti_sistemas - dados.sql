@@ -16,36 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `requisicao`
+-- Dumping data for table `sistemas`
 --
 
-DROP TABLE IF EXISTS `requisicao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `requisicao` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `ChaveProcesso` varchar(45) NOT NULL,
-  `Titulo` varchar(45) NOT NULL,
-  `Descricao` varchar(120) NOT NULL,
-  `Status` varchar(45) NOT NULL,
-  `Prioridade` varchar(45) DEFAULT NULL,
-  `Sistema` varchar(45) NOT NULL,
-  `ChaveSistema` varchar(45) NOT NULL,
-  `Solicitante` varchar(45) NOT NULL,
-  `ResponsavelTI` varchar(45) DEFAULT NULL,
-  `Desenvolvedor` varchar(45) DEFAULT NULL,
-  `DataClassificacao` date DEFAULT NULL,
-  `DataCriacao` date DEFAULT NULL,
-  `DataIniImplementacao` date DEFAULT NULL,
-  `DataImplementacao` date DEFAULT NULL,
-  `NotaCancelamento` varchar(120) DEFAULT NULL,
-  `DataCancelamento` date DEFAULT NULL,
-  `NotaImplementacao` varchar(120) DEFAULT NULL,
-  `DataEncerramento` date DEFAULT NULL,
-  `NotaEncerramento` varchar(120) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `sistemas` WRITE;
+/*!40000 ALTER TABLE `sistemas` DISABLE KEYS */;
+INSERT INTO `sistemas` VALUES (1,'Sistema RH','SisRH','Sistema corporativo de Recursos Humanos'),(2,'Sistema Financeiro','SisFin','Sistema de Gestão Financeira'),(3,'Sistema Técnico','SisTec','Sistema de operação técnica'),(4,'Sistema de Gestão Empresarial','SisGest','Sistema de automatização empresarial'),(5,'Sistema de Business Intelligence','SisBI','Sistema de análise de dados de negócio');
+/*!40000 ALTER TABLE `sistemas` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -56,4 +34,4 @@ CREATE TABLE `requisicao` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-05 16:13:01
+-- Dump completed on 2024-06-05 16:11:43
